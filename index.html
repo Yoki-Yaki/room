@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁‍🗨</text></svg>">
+    <style>
+        body {
+            font-family: Arial, MV Boli;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+            margin: 0;
+            opacity: 0; /* Start invisible for fade-in effect */
+            transition: opacity 2s ease-in; /* Fade-in transition */
+        }
+
+        #image-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #clickable-image {
+            cursor: pointer;
+            width: 1152px;
+            height: 648px;
+            transition: transform 0.3s;
+        }
+
+            #clickable-image:hover {
+                transform: scale(1);
+            }
+
+        #drop-zone {
+            position: absolute;
+            width: 418px;
+            height: 513px;
+            border-radius: 8px;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: url('sprites/lock.png');
+        }
+
+            #drop-zone.hover {
+                border-color: #28a745;
+                background-color: rgba(212, 237, 218, 0.9);
+                color: #155724;
+            }
+
+        #text-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: top;
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #353535;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+
+            #close-button:hover {
+                background-color: #6c757d;
+            }
+
+        #black-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure it appears on top */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="image-container">
+        <img id="clickable-image" src="sprites/room.png" alt=" " title=" ">
+        <div id="text-overlay" style="font-family:MV Boli">Drag the correct Key Image here</div>
+        <div id="drop-zone">
+            <p> </p>
+            <button id="close-button">&times;</button>
+        </div>
+    </div>
+
+    <div id="black-screen"></div>
+
+    <!-- Add a sound to be played when access is granted -->
+    <audio id="access-granted-sound" src="sounds/open.mp3"></audio>
+    <audio id="key-fail" src="sounds/key_fail.mp3"></audio>
+
+    <script>
+        const clickableImage = document.getElementById('clickable-image');
+        const dropZone = document.getElementById('drop-zone');
+        const textOverlay = document.getElementById('text-overlay');
+        const closeButton = document.getElementById('close-button');
+        const blackScreen = document.getElementById('black-screen');
+        const accessGrantedSound = document.getElementById('access-granted-sound');
+        const keyFail = document.getElementById('key-fail');
+        const correctImageName = "91fhx83j7gf1kh3koqwhfz9483xfkh23jqlp.png";
+
+        // Fade in the body when the page loads
+        window.onload = () => {
+            document.body.style.opacity = 1;
+        };
+
+        clickableImage.addEventListener('click', () => {
+            dropZone.style.display = 'flex'; // Show the drop zone
+            textOverlay.style.display = 'flex'; // Show the text overlay
+            closeButton.style.display = 'block'; // Show the close button
+        });
+
+        closeButton.addEventListener('click', () => {
+            dropZone.style.display = 'none'; // Hide the drop zone
+            textOverlay.style.display = 'none'; // Hide the text overlay
+            closeButton.style.display = 'none'; // Hide the close button
+        });
+
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.classList.add('hover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('hover');
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.classList.remove('hover');
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.name === correctImageName) {
+                    keyFail.play();
+                    blackScreen.style.display = 'flex';
+
+                    setTimeout(() => {
+                        keyFail.pause();
+                        keyFail.currentTime.opacity =
+                            blackScreen.style.display = 'none';
+                        document.getElementById("text-overlay").innerHTML = "Wrong Key";
+                    }, 3500);
+                } else {
+                    keyFail.play();
+                    blackScreen.style.display = 'flex';
+
+                    setTimeout(() => {
+                        keyFail.pause();
+                        keyFail.currentTime.opacity = 
+                        blackScreen.style.display = 'none';
+                        document.getElementById("text-overlay").innerHTML = "Wrong Key";
+                    }, 3500);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
