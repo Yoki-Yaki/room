@@ -125,7 +125,7 @@
         const blackScreen = document.getElementById('black-screen');
         const accessGrantedSound = document.getElementById('access-granted-sound');
         const keyFail = document.getElementById('key-fail');
-        const correctImageName = "91fhx83j7gf1kh3koqwhfz9483xfkh23jqlp.png";
+        const correctImageName = "91fhx83j7gf1kh3koqwhfz9483xfkh23jqlp.png"; // The required image name
 
         // Fade in the body when the page loads
         window.onload = () => {
@@ -161,15 +161,14 @@
             if (files.length > 0) {
                 const file = files[0];
                 if (file.name === correctImageName) {
-                    keyFail.play();
+                    // Play sound and show black screen
+                    accessGrantedSound.play();
                     blackScreen.style.display = 'flex';
 
+                    // Wait for 7 seconds before redirecting
                     setTimeout(() => {
-                        keyFail.pause();
-                        keyFail.currentTime.opacity =
-                            blackScreen.style.display = 'none';
-                        document.getElementById("text-overlay").innerHTML = "Wrong Key";
-                    }, 3500);
+                        window.location.href = "protected.html"; // Redirect to protected page
+                    }, 7000);
                 } else {
                     keyFail.play();
                     blackScreen.style.display = 'flex';
