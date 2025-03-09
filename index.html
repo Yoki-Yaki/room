@@ -3,186 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁‍🗨</text></svg>">
+    <title>Room</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💾</text></svg>">
     <style>
         body {
             font-family: Arial, MV Boli;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #000000;
             margin: 0;
-            opacity: 0; /* Start invisible for fade-in effect */
-            transition: opacity 2s ease-in; /* Fade-in transition */
-        }
-
-        #image-container {
+            opacity: 0;
+            transition: opacity 2s ease-in;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #000000;
         }
 
-        #clickable-image {
-            cursor: pointer;
-            width: 1152px;
-            height: 648px;
-            transition: transform 0.3s;
-        }
-
-            #clickable-image:hover {
-                transform: scale(1);
+            body::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('sprites/bg.png');
+                background-position: center top;
+                background-repeat: no-repeat;
+                background-size: 110%;
+                z-index: -1;
             }
 
-        #drop-zone {
-            position: absolute;
-            width: 418px;
-            height: 513px;
-            border-radius: 8px;
-            display: none; /* Initially hidden */
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background-image: url('sprites/lock.png');
+        .video-container {
+            position: relative;
+            width: 320px;
+            height: 240px;
+            margin-bottom: 20px;
         }
 
-            #drop-zone.hover {
-                border-color: #28a745;
-                background-color: rgba(212, 237, 218, 0.9);
-                color: #155724;
-            }
-
-        #text-overlay {
+        video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            display: none; /* Initially hidden */
-            justify-content: center;
-            align-items: top;
-            color: white;
-            font-size: 24px;
-            text-shadow: 2px 2px 4px #000000;
+            display: none;
         }
 
-        #close-button {
+        #video4 {
+            display: block;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 90px;
+            justify-content: space-between;
+            width: 200px;
+        }
+
+        input {
+            width: 100px;
+            height: 45px;
+        }
+
+        button {
+            width: 69px;
+            height: 51px;
+            margin-left: 10px;
+        }
+
+        .rightButton {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            right: 510px;
+            top: 53%;
+            transform: translateY(-50%);
+            width: 210px;
+            height: 170px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+        }
+
+            .rightButton:hover {
+                background-color: #45a049;
+            }
+
+        .image-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            z-index: 1000;
+        }
+
+            .image-overlay img {
+                width: 600px;
+                height: auto;
+            }
+
+        .close-button {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
             background-color: #353535;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
             cursor: pointer;
-            display: none; /* Initially hidden */
-        }
-
-            #close-button:hover {
-                background-color: #6c757d;
-            }
-
-        #black-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            display: none; /* Hidden by default */
+            font-size: 16px;
+            display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* Ensure it appears on top */
+        }
+        .wersaol-image {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            display: none;
+            width: 500px;
+            height: auto;
         }
     </style>
 </head>
 <body>
-
-    <div id="image-container">
-        <img id="clickable-image" src="sprites/room.png" alt=" " title=" ">
-        <div id="text-overlay" style="font-family:MV Boli">Drag the correct Key Image here</div>
-        <div id="drop-zone">
-            <p> </p>
-            <button id="close-button">&times;</button>
-        </div>
+    <div class="video-container">
+        <video id="video4" loop autoplay><source src="video4.mp4" type="video/mp4"></video>
+        <video id="video3" loop autoplay><source src="video3.mp4" type="video/mp4"></video>
+        <video id="video1"><source src="video1.mp4" type="video/mp4"></video>
+        <video id="video2"><source src="video2.mp4" type="video/mp4"></video>
+        <video id="error"><source src="error.mp4" type="video/mp4"></video>
     </div>
 
-    <div id="black-screen"></div>
+    <img id="wersaolImage" class="wersaol-image" src="sprites/wersaol.png" alt="Wersaol Image">
 
-    <!-- Add a sound to be played when access is granted -->
-    <audio id="access-granted-sound" src="sounds/open.mp3"></audio>
-    <audio id="key-fail" src="sounds/key_fail.mp3"></audio>
+    <div class="input-container">
+        <input type="text" id="passwordInput" placeholder=" " aria-label="Enter password">
+        <button onclick="checkPassword()" aria-label="Submit password"></button>
+    </div>
+
+    <button class="rightButton" onclick="showImage()" aria-label="Another action">Right</button>
+
+    <div class="image-overlay" id="imageOverlay">
+        <button class="close-button" onclick="hideImage()">X</button>
+        <img src="sprites/pot.png" alt="Pot Image">
+    </div>
+
+    <audio id="potSound" src="sounds/pot.mp3"></audio>
 
     <script>
-        const clickableImage = document.getElementById('clickable-image');
-        const dropZone = document.getElementById('drop-zone');
-        const textOverlay = document.getElementById('text-overlay');
-        const closeButton = document.getElementById('close-button');
-        const blackScreen = document.getElementById('black-screen');
-        const accessGrantedSound = document.getElementById('access-granted-sound');
-        const keyFail = document.getElementById('key-fail');
-        const correctImageName = "91fhx83j7gf1kh3koqwhfz9483xfkh23jqlp.png"; // The required image name
-
-        // Fade in the body when the page loads
         window.onload = () => {
             document.body.style.opacity = 1;
         };
 
-        clickableImage.addEventListener('click', () => {
-            dropZone.style.display = 'flex'; // Show the drop zone
-            textOverlay.style.display = 'flex'; // Show the text overlay
-            closeButton.style.display = 'block'; // Show the close button
-        });
+        function checkPassword() {
+            var password = document.getElementById("passwordInput").value;
+            var videos = ["video1", "video2", "video3", "video4", "error"];
+            videos.forEach(id => {
+                var vid = document.getElementById(id);
+                vid.pause();
+                vid.style.display = "none";
+                vid.currentTime = 0;
+            });
 
-        closeButton.addEventListener('click', () => {
-            dropZone.style.display = 'none'; // Hide the drop zone
-            textOverlay.style.display = 'none'; // Hide the text overlay
-            closeButton.style.display = 'none'; // Hide the close button
-        });
+            if (password === "pharos") {
+                window.open("https://youtu.be/jj3yM0bhHNw?si=wqsGr565do0DY_5W", "_blank");
+            } else if (password === "pharosgg") {
+                window.open("https://youtu.be/jj3yM0bhHNw?si=wqsGr565do0DY_5W", "_blank");
 
-        dropZone.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dropZone.classList.add('hover');
-        });
+            } else if (password === "x4rdch") {
+                window.open("https://ru.wikipedia.org/wiki/%D0%A4%D1%83%D1%80%D1%80%D0%B8", "_blank");
+            } else if (password === "xardch") {
+                window.open("https://ru.wikipedia.org/wiki/%D0%A4%D1%83%D1%80%D1%80%D0%B8", "_blank");
+            } else if (password === "goldy") {
+                window.open("https://ru.wikipedia.org/wiki/%D0%A4%D1%83%D1%80%D1%80%D0%B8", "_blank");
 
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('hover');
-        });
+            } else if (password === "yoki") {
+                window.open("https://drive.google.com/file/d/18eNiNEZyxkKZBawNvZxNzmxMenFenAjf/view?usp=sharing", "_blank");
+            } else if (password === "yoki0309") {
+                window.open("https://drive.google.com/file/d/18eNiNEZyxkKZBawNvZxNzmxMenFenAjf/view?usp=sharing", "_blank");
 
-        dropZone.addEventListener('drop', (event) => {
-            event.preventDefault();
-            dropZone.classList.remove('hover');
+            } else if (password === "yarik") {
+                window.open("https://www.youtube.com/watch?v=wO61D9x6lNY", "_blank");
+            } else if (password === "kruhliassh") {
+                window.open("https://www.youtube.com/watch?v=wO61D9x6lNY", "_blank");
 
-            const files = event.dataTransfer.files;
-            if (files.length > 0) {
-                const file = files[0];
-                if (file.name === correctImageName) {
-                    // Play sound and show black screen
-                    accessGrantedSound.play();
-                    blackScreen.style.display = 'flex';
+            } else if (password === "iceberg") {
+                window.open("https://www.youtube.com/watch?v=naglrNWbU6Q", "_blank");
 
-                    // Wait for 7 seconds before redirecting
-                    setTimeout(() => {
-                        window.location.href = "protected.html"; // Redirect to protected page
-                    }, 7000);
-                } else {
-                    keyFail.play();
-                    blackScreen.style.display = 'flex';
+            } else if (password === "wersaol") {
+                document.getElementById("wersaolImage").style.display = "block";
 
-                    setTimeout(() => {
-                        keyFail.pause();
-                        keyFail.currentTime.opacity = 
-                        blackScreen.style.display = 'none';
-                        document.getElementById("text-overlay").innerHTML = "Wrong Key";
-                    }, 3500);
-                }
+            } else if (password === "inlovveer") {
+                window.open("https://www.youtube.com/watch?v=uYeLh-8GDTw", "_blank");
+
+            } else if (password === "wersaol") {
+                window.open("", "_blank");
+
+            } else if (password === "hide and seek") {
+                window.open("https://docs.google.com/spreadsheets/d/1vvjPDOhTQTFJ2Wk72SZqDUUodqHTOhzP1R2NtlRMjnM/edit?usp=sharing", "_blank");
+            } else if (password === "pryatki") {
+                window.open("https://docs.google.com/spreadsheets/d/1vvjPDOhTQTFJ2Wk72SZqDUUodqHTOhzP1R2NtlRMjnM/edit?usp=sharing", "_blank");
+            } else if (password === "hide&seek") {
+                window.open("https://docs.google.com/spreadsheets/d/1vvjPDOhTQTFJ2Wk72SZqDUUodqHTOhzP1R2NtlRMjnM/edit?usp=sharing", "_blank");
+            } else if (password === "hide & seek") {
+                window.open("https://docs.google.com/spreadsheets/d/1vvjPDOhTQTFJ2Wk72SZqDUUodqHTOhzP1R2NtlRMjnM/edit?usp=sharing", "_blank");
+
+            } else if (password === "hilbert") {
+                document.getElementById("video1").style.display = "block";
+                document.getElementById("video1").play();
+            } else {
+                document.getElementById("error").style.display = "block";
+                document.getElementById("error").play();
             }
-        });
-    </script>
+        }
 
+        function showImage() {
+            document.getElementById("imageOverlay").style.display = "block";
+            document.getElementById("potSound").play();
+        }
+
+        function hideImage() {
+            document.getElementById("imageOverlay").style.display = "none";
+        }
+
+        document.getElementById("video1").addEventListener("ended", () => switchToVideo3());
+        document.getElementById("video2").addEventListener("ended", () => switchToVideo3());
+        document.getElementById("error").addEventListener("ended", () => switchToVideo3());
+
+        function switchToVideo3() {
+            var videos = ["video1", "video2", "video4", "error"];
+            videos.forEach(id => document.getElementById(id).style.display = "none");
+            document.getElementById("video3").style.display = "block";
+            document.getElementById("video3").play();
+        }
+    </script>
 </body>
 </html>
