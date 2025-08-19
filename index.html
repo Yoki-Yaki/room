@@ -104,7 +104,7 @@
 
     <div id="image-container">
         <img id="clickable-image" src="sprites/room.png" alt=" " title=" ">
-        <div id="text-overlay" style="font-family:MV Boli">Drag the correct Key Image here</div>
+        <div id="text-overlay" style="font-family:MV Boli"></div>
         <div id="drop-zone">
             <p> </p>
             <button id="close-button">&times;</button>
@@ -113,7 +113,7 @@
 
     <div id="black-screen"></div>
 
-    <!-- Add a sound to be played when access is granted -->
+    <!-- Sounds -->
     <audio id="access-granted-sound" src="sounds/open.mp3"></audio>
     <audio id="key-fail" src="sounds/key_fail.mp3"></audio>
 
@@ -125,23 +125,22 @@
         const blackScreen = document.getElementById('black-screen');
         const accessGrantedSound = document.getElementById('access-granted-sound');
         const keyFail = document.getElementById('key-fail');
-        const correctImageName = "91fhx83j7gf1kh3koqwhfz9483xfkh23jqlp.png"; // The required image name
+        const correctImageName = "91fhx83j7gf1kh3koqwhfz9483xfkh23jqlp.png";
 
-        // Fade in the body when the page loads
+        // Fade in the body
         window.onload = () => {
             document.body.style.opacity = 1;
         };
 
+        // Redirect to type.html on click
         clickableImage.addEventListener('click', () => {
-            dropZone.style.display = 'flex'; // Show the drop zone
-            textOverlay.style.display = 'flex'; // Show the text overlay
-            closeButton.style.display = 'block'; // Show the close button
+            window.location.href = "type.html";
         });
 
         closeButton.addEventListener('click', () => {
-            dropZone.style.display = 'none'; // Hide the drop zone
-            textOverlay.style.display = 'none'; // Hide the text overlay
-            closeButton.style.display = 'none'; // Hide the close button
+            dropZone.style.display = 'none';
+            textOverlay.style.display = 'none';
+            closeButton.style.display = 'none';
         });
 
         dropZone.addEventListener('dragover', (event) => {
@@ -161,21 +160,17 @@
             if (files.length > 0) {
                 const file = files[0];
                 if (file.name === correctImageName) {
-                    // Play sound and show black screen
                     accessGrantedSound.play();
                     blackScreen.style.display = 'flex';
-
-                    // Wait for 7 seconds before redirecting
                     setTimeout(() => {
-                        window.location.href = "protected.html"; // Redirect to protected page
+                        window.location.href = "protected.html";
                     }, 7000);
                 } else {
                     keyFail.play();
                     blackScreen.style.display = 'flex';
-
                     setTimeout(() => {
                         keyFail.pause();
-                        keyFail.currentTime.opacity = 
+                        keyFail.currentTime = 0;
                         blackScreen.style.display = 'none';
                         document.getElementById("text-overlay").innerHTML = "Wrong Key";
                     }, 3500);
@@ -186,4 +181,3 @@
 
 </body>
 </html>
-
