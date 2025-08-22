@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -62,19 +62,24 @@
                     "Attempting to obtain coordinates of the R.O.O.M. ...",
                     "Failed...",
                     "",
-                    "Attempting to obtain last data from the R.O.O.M. ...",
+                    "Attempting to obtain last saved coordinates of the R.O.O.M. ...",
                     "Successful!",
                     " ",
                     "Decoding...",
                     "Successful!",
-                    "Downloading..."
+                    "ㅤ",
+                    "--------------------",
+                    "World: Not Enough Magic",
+                    "Coordinates: 16 70 -21",
+                    "Status: Unknown",
+                    "--------------------",
                 ],
                 speed: 60,
                 startDelay: 500,
                 lineDelay: 1000,
                 loop: false,
                 sound: "sounds/uifont.wav",
-                downloadFile: "sprites/iceb.png" // file to download after typing
+                youtubeUrl: "https://youtu.be/gogqBxcGTRM" // video to redirect
             };
 
             const cfg = {
@@ -84,7 +89,7 @@
                 lineDelay: Number(params.get('lineDelay') ?? defaults.lineDelay),
                 loop: (params.get('loop') ?? String(defaults.loop)) === 'true',
                 sound: params.get('sound') ?? defaults.sound,
-                downloadFile: params.get('download') ?? defaults.downloadFile
+                youtubeUrl: params.get('youtube') ?? defaults.youtubeUrl
             };
 
             const escapeHTML = (s) => s
@@ -140,14 +145,9 @@
                     await sleep(cfg.lineDelay);
                     run();
                 } else {
-                    // Trigger file download once typing is complete
-                    if (cfg.downloadFile) {
-                        const link = document.createElement("a");
-                        link.href = cfg.downloadFile;
-                        link.download = cfg.downloadFile.split("/").pop();
-                        document.body.appendChild(link);
-                        link.click();
-                        link.remove();
+                    // 🔹 Redirect to YouTube once typing is complete
+                    if (cfg.youtubeUrl) {
+                        window.location.href = cfg.youtubeUrl;
                     }
                 }
             }
@@ -164,4 +164,3 @@
     </script>
 </body>
 </html>
-
